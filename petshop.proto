@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+service PetShop {
+    rpc AddCliente (Cliente) returns (Response);
+    rpc AddPet (Pet) returns (Response);
+    rpc AddServico (Servico) returns (Response);
+    rpc ListClientes (Empty) returns (ClienteList);
+    rpc ListPets (Empty) returns (PetList);
+    rpc ListServicos (Empty) returns (ServicoList);
+}
+
+message Cliente {
+    string nome = 1;
+    string email = 2;
+    string rua = 3;
+    string bairro = 4;
+    string numero_casa = 5;
+    string telefone = 6;
+    string cpf = 7;
+}
+
+message Pet {
+    string nome = 1;
+    string animal = 2;
+    Cliente dono = 3;
+    string raca = 4;
+    string rga = 5;
+}
+
+message Servico {
+    string pet_nome = 1;
+    string servico = 2;
+    string data = 3;
+}
+
+message Response {
+    string message = 1;
+}
+
+message Empty {}
+
+message ClienteList {
+    repeated Cliente clientes = 1;
+}
+
+message PetList {
+    repeated Pet pets = 1;
+}
+
+message ServicoList {
+    repeated Servico servicos = 1;
+}
