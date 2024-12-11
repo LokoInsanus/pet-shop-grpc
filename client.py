@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import grpc
+import grpc # type: ignore
 import petshop_pb2
 import petshop_pb2_grpc
 
@@ -147,6 +147,15 @@ class AplicativoPetShop:
         self.texto_servicos = tk.Text(self.aba_listar_servicos, height=15, width=50)
         self.texto_servicos.pack()
 
+        self.aba_grupo = ttk.Frame(self.notebook)
+        self.notebook.add(self.aba_grupo, text="Grupo")
+
+        self.botao_grupo = ttk.Button(self.aba_grupo, text="Mostrar Grupo", command=self.grupo)
+        self.botao_grupo.pack()
+
+        self.texto_grupo = tk.Label(self.aba_grupo, height=10, width=50)
+        self.texto_grupo.pack()
+
     def listar_clientes(self):
         resposta = stub.ListClientes(petshop_pb2.Empty())
         self.texto_clientes.delete(1.0, tk.END)
@@ -168,6 +177,9 @@ class AplicativoPetShop:
         self.texto_servicos.delete(1.0, tk.END)
         for servico in resposta.servicos:
             self.texto_servicos.insert(tk.END, f"Nome do Pet: {servico.pet_nome}, Serviço: {servico.servico}, Data: {servico.data}\n")
+
+    def grupo(self):
+        self.texto_grupo.config(text=stub.GetGrupo(petshop_pb2.Empty()).message)
 
 if __name__ == "__main__":
     root = tk.Tk()

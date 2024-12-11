@@ -7,6 +7,7 @@ service PetShop {
     rpc ListClientes (Empty) returns (ClienteList);
     rpc ListPets (Empty) returns (PetList);
     rpc ListServicos (Empty) returns (ServicoList);
+    rpc GetGrupo (Empty) returns (Grupo);
 }
 
 message Cliente {
@@ -49,4 +50,8 @@ message PetList {
 
 message ServicoList {
     repeated Servico servicos = 1;
+}
+
+message Grupo {
+    string message = 1;
 }

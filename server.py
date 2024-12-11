@@ -1,5 +1,5 @@
 from concurrent import futures
-import grpc
+import grpc # type: ignore
 import petshop_pb2
 import petshop_pb2_grpc
 
@@ -89,6 +89,11 @@ class ServidorPetShop(petshop_pb2_grpc.PetShopServicer):
                 data=servico["data"]
             )
         return lista_servicos
+
+    def GetGrupo(self, request, context):
+        grupo = petshop_pb2.Grupo()
+        grupo.message = 'Marcelo de Oliveira Costa Pereira e Roger de Assis Tedesco'
+        return grupo
 
 def iniciar_servidor():
     servidor = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
